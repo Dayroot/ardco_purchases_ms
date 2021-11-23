@@ -6,11 +6,7 @@ async function createPurchase(purchase){
 }
 
 async function getPurchase(filterPurchase){
-    let filter = {};
-    if(filterPurchase){
-        filter = { _id: filterPurchase };
-    }
-    return await Model.find(filter)
+    return await Model.find(filterPurchase)
 }
 
 async function updatePurchase(data){

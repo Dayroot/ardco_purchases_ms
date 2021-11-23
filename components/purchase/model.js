@@ -3,18 +3,17 @@ const Schema = mongoose.Schema;
 
 
 const purchaseSchema = new Schema({
-    data: {
+    date: {
         type: Date,
         default: Date.now()
     },
-    user: {
+    userId: {
         type: String,
         required: true,
     },
     products: [{
-        product: {
-            type: Schema.ObjectId,
-            ref: 'Product'
+        productId: {
+            type: String,
         },
         quantity:{
             type: Number,
@@ -28,6 +27,10 @@ const purchaseSchema = new Schema({
     status: {
         type: String,
         required: true,
+        enum: {
+            values: ['en espera', 'despachado','entregado'],
+            message: '{VALUE} is not supported'
+        }
     },
     
 });

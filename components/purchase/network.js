@@ -13,18 +13,8 @@ router.post('/', function(req, res){
         });
 });
 
-router.get('/:id', function(req, res){
-    controller.getPurchase(req.params.id)
-        .then( data => {
-            response.success(req, res, data, 200);
-        })
-        .catch( e => {
-            response.error(req, res, "Unexpected error", 500, e);
-        });
-});
-
 router.get('/', function(req, res){
-    controller.getPurchase()
+    controller.getPurchase(req.query)
         .then( data => {
             response.success(req, res, data, 200);
         })
