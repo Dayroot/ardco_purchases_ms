@@ -35,5 +35,10 @@ const purchaseSchema = new Schema({
     
 });
 
+purchaseSchema.pre('findOneAndUpdate', function (next) {
+    this.options.runValidators = true
+    next()
+})
+
 const model = mongoose.model('Purchase', purchaseSchema);
 module.exports = model;
