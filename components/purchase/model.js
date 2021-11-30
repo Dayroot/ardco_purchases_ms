@@ -12,7 +12,7 @@ const purchaseSchema = new Schema({
         required: true,
     },
     products: [{
-        productId: {
+        product: {
             type: String,
         },
         quantity:{
