@@ -33,6 +33,17 @@ router.patch('/', function(req, res){
     });
 });
 
+router.patch('/changeProductStatus/', function(req, res){
+    controller.changeProductStatus(req.body)
+    .then( data => {
+        response.success(req, res, data, 200);
+    })
+    .catch( e => {
+        response.error(req, res, "Unexpected error", 500, e);
+    });
+});
+
+
 router.delete('/:id', function(req, res){
     controller.deletePurchase(req.params.id)
         .then( data => {

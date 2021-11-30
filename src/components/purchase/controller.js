@@ -15,6 +15,14 @@ function updatePurchase(data){
     return store.update(data)
 }
 
+function changeProductStatus(data){
+    if(!data.purchaseId){
+        return Promise.reject('Invalid data');
+    }
+    return store.changeStatus(data)
+}
+
+
 function deletePurchase(id){
     if(!id){
         return Promise.reject('Invalid data');
@@ -27,4 +35,5 @@ module.exports = {
     getPurchase,
     updatePurchase,
     deletePurchase,
+    changeProductStatus,
 }

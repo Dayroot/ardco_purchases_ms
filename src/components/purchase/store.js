@@ -22,6 +22,29 @@ async function updatePurchase(data){
     return result
 }
 
+async function changeProductStatus(data){
+    let productIndex;
+
+    const purchase = await Model.findOne({ _id: data.purchaseId });
+    
+    if(!purchase){
+        return Promise.reject('Invalid data');
+    }
+    
+    purchase.products.forEach( (prod, index) => {
+        if(prod.product == data.product)
+            productIndex = index;  
+    });
+    
+    const currentStatus = {status: purchase.products[productIndex].status };
+    purchase.products[productIndex].status = data.status;
+    await purchase.save();
+    const result = purchase.products[productIndex];
+
+    return { update: result, before:currentStatus }
+}
+
+
 async function deletePurchase(id){
     const purchaseDeleted = await Model.deleteOne( { _id: id } );
     if(!purchaseDeleted){
@@ -34,5 +57,6 @@ module.exports = {
     create: createPurchase,
     get: getPurchase,
     update: updatePurchase,
+    changeStatus: changeProductStatus,
     delete: deletePurchase,
 }
