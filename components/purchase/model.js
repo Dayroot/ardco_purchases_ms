@@ -18,26 +18,27 @@ const purchaseSchema = new Schema({
         quantity:{
             type: Number,
             default:1
-        }
+        },
+        status: {
+            type: String,
+            required: true,
+            default: 'en espera',
+            enum: {
+                values: ['en espera', 'despachado','entregado'],
+                message: '{VALUE} is not supported'
+            }
+        },
     }],
     total: {
         type: Number,
         required: true,
     },
-    status: {
-        type: String,
-        required: true,
-        enum: {
-            values: ['en espera', 'despachado','entregado'],
-            message: '{VALUE} is not supported'
-        }
-    },
     
 });
 
 purchaseSchema.pre('findOneAndUpdate', function (next) {
-    this.options.runValidators = true
-    next()
+    this.options.runValidators = true;
+    next();
 })
 
 const model = mongoose.model('Purchase', purchaseSchema);
